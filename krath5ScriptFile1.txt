@@ -1,0 +1,16 @@
+-- Script one for Kenneth Rath
+
+-- Create the new database
+SHOW DATABASES;
+DROP DATABASE IF EXISTS krath5assign2db;
+CREATE DATABASE krath5assign2db;
+USE krath5assign2db;
+
+-- Give ta's access to database
+GRANT USAGE ON *.* TO 'ta'@'localhost';
+DROP USER 'ta'@'localhost';
+CREATE USER 'ta'@'localhost' IDENTIFIED BY 'cs3319';
+GRANT ALL PRIVILEGES ON krath5assign2db.* TO 'ta'@'localhost';
+FLUSH PRIVILEGES;
+
+-- Create the tables
