@@ -1,0 +1,29 @@
+-- Script three for Kenneth Rath
+
+-- Check to make sure in correct database
+SHOW DATABASES;
+USE krath5assign2db;
+
+-- Showing data in all tables
+SELECT * FROM product;
+SELECT * FROM agent;
+SELECT * FROM customer;
+SELECT * FROM purchasedby;
+
+-- Create View
+CREATE VIEW customerwithpurchases AS SELECT customer.firstname, customer.lastname, product.description, purchasedby.quantity, product.cost, (purchasedby.quantity * product.cost) "Total cost for product" FROM customer, product, purchasedby WHERE customer.customerid = purchasedby.customerid AND product.productid = purchasedby.productid ORDER BY customer.lastname;
+
+-- Select all rows from view
+SELECT * FROM customerwithpurchases;
+
+-- Select where customers spent more than 100
+SELECT * FROM customerwithpurchases WHERE "Total cost for product" >100;
+
+-- Delete my made up product
+DELETE FROM product WHERE description = "Shoulder Pads";
+SELECT * FROM product;
+
+-- Delete agents from springfield
+DELETE FROM agent WHERE city = "Springfield";
+
+-- All agents from springfield were deleted.
