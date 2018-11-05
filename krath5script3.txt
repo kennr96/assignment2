@@ -1,0 +1,50 @@
+-- Script three for Kenneth Rath
+
+-- Check to make sure in correct database
+SHOW DATABASES;
+USE krath5assign2db;
+
+-- Query 1
+SELECT description FROM product;
+
+-- Query 2
+SELECT distinct(city) FROM customer;
+
+-- Query 3
+SELECT * FROM agent ORDER BY city;
+
+-- Query 4
+SELECT firstname, lastname FROM customer WHERE city = "Springfield";
+
+-- Query 5
+SELECT customer.lastname FROM customer JOIN agent ON customer.customerid = agent.customerid WHERE agent.firstname = "Regis";
+
+-- Query 6
+SELECT description FROM product WHERE description LIKE "%pad%" OR description LIKE "%Pad%";
+
+-- Query 7
+SELECT customer.lastname, product.description, purchasedby.quantity FROM customer, product, purchasedby WHERE customer.customerid = purchasedby.customerid AND product.productid = purchasedby.productid;
+
+-- Query 8
+SELECT purchasedby.quantity "Homer's Total Purchases" FROM purchasedby, customer WHERE purchasedby.customerid = customer.customerid AND customer.firstname = "Homer";
+
+-- Query 9
+SELECT customer.firstname, customer.lastname, purchasedby.quantity FROM customer, purchasedby WHERE customer.customerid = purchasedby.customerid GROUP BY customer.firstname, customer.lastname;
+
+-- Query 10
+SELECT product.description, product.quantity FROM product LEFT JOIN purchasedby ON product.productid = purchasedby.productid WHERE purchasedby.quantity IS NULL;
+
+-- Query 11
+SELECT product.description, product.quantity FROM product WHERE product.description NOT IN (SELECT purchasedby.productid FROM purchasedby, customer WHERE purchasedby.customerid = customer.customerid AND customer.firstname = "Fred" AND customer.lastname = "Flinstone");
+
+-- Query 12
+SELECT agent.firstname, agent.lastname, customer.firstname, customer.lastname FROM agent, customer WHERE agent.customerid = customer.customerid AND agent.city = customer.city;
+
+-- Query 13
+SELECT SUM(product.quantity) "Total products purchased" FROM product JOIN purchasedby ON product.productid = purchasedby.productid;
+
+-- Query 14
+SELECT description FROM product JOIN purchasedby ON product.productid = purchasedby.productid HAVING COUNT(purchasedby.productid) >3;
+
+-- Query 15
+SELECT agent.firstname, agent.lastname FROM agent, purchasedby, product WHERE agent.customerid = purchasedby.customerid AND product.productid = purchasedby.productid AND product.description = "Knee Pads";
