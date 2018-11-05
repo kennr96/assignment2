@@ -1,0 +1,76 @@
+-- Script two for Kenneth Rath
+
+-- Ensuring that I am in the correct Database
+SHOW DATABASES;
+USE krath5assign2db;
+
+-- Loading from prof's file into table. Note: I received an error during this command.
+-- From my research online it appears that her file must be in a directory I don't have access to.
+LOAD DATA LOCAL INFILE "insertdata.txt" INTO TABLE product;
+
+-- Manualy adding data from prof's file into table because of error
+INSERT INTO product (productid, description, cost, quantity) VALUES (12, "Socks", 2.00, 100);
+INSERT INTO product (productid, description, cost, quantity) VALUES (11, "Bike", 150.00, 200);
+INSERT INTO product (productid, description, cost, quantity) VALUES (99, "Helmet", 29.00, 30);
+INSERT INTO product (productid, description, cost, quantity) VALUES (88, "Roller Blades", 75.00, 89);
+INSERT INTO product (productid, description, cost, quantity) VALUES (78, "Knee Pads", 12.15, 70);
+
+-- Inserting data into product table
+INSERT INTO product (productid, description, cost, quantity) VALUES (66, "Elbow pads", 14.25, 120);
+INSERT INTO product (productid, description, cost, quantity) VALUES (96, "Shoulder Pads", 24.95, 80);
+
+-- Inserting data into agent table
+INSERT INTO agent (agentid, firstname, lastname, city, commission, customerid) VALUES (99, "Hugh", "Grant", "Springfield", 16, NULL);
+INSERT INTO agent (agentid, firstname, lastname, city, commission, customerid) VALUES (22, "Courtney", "Cox", "New York", 25, NULL);
+INSERT INTO agent (agentid, firstname, lastname, city, commission, customerid) VALUES (66, "Rosie", "ODonnell", "Ottawa", 100, NULL);
+INSERT INTO agent (agentid, firstname, lastname, city, commission, customerid) VALUES (33, "David", "Letterman", "Bedrock", 100, NULL);
+INSERT INTO agent (agentid, firstname, lastname, city, commission, customerid) VALUES (11, "Regis", "Philbin", "Boston", 33, NULL);
+INSERT INTO agent (agentid, firstname, lastname, city, commission, customerid) VALUES (12, "Rosie", "Cox", "Ottawa", 50, NULL);
+INSERT INTO agent (agentid, firstname, lastname, city, commission, customerid) VALUES (96, "Ken", "Rath", "London", 100, NULL);
+
+-- Inserting data into customer table
+INSERT INTO customer (customerid, firstname, lastname, city, phonenumber) VALUES (21, "Homer", "Simpson", "Springfield", "686-8956");
+INSERT INTO customer (customerid, firstname, lastname, city, phonenumber) VALUES (31, "Sideshow", "Bob", "Springfield", "686-5555");
+INSERT INTO customer (customerid, firstname, lastname, city, phonenumber) VALUES (12, "Monty", "Burns", "Springfield", "789-0000");
+INSERT INTO customer (customerid, firstname, lastname, city, phonenumber) VALUES (15, "Fred", "Flintstone", "Bedrock", "777-2345");
+INSERT INTO customer (customerid, firstname, lastname, city, phonenumber) VALUES (13, "Super", "Man", "Krypto", "888-1234");
+INSERT INTO customer (customerid, firstname, lastname, city, phonenumber) VALUES (10, "Barney", "Rubble", "Bedrock", "777-1234");
+INSERT INTO customer (customerid, firstname, lastname, city, phonenumber) VALUES (14, "Peter", "Griffens", "Providence", "987-4567");
+
+-- Inserting data into purchasedby table
+INSERT INTO purchasedby (productid, customerid, quantity) VALUES (99, 21, 20);
+INSERT INTO purchasedby (productid, customerid, quantity) VALUES (12, 21, 14);
+INSERT INTO purchasedby (productid, customerid, quantity) VALUES (66, 21, 10);
+INSERT INTO purchasedby (productid, customerid, quantity) VALUES (99, 31, 1);
+INSERT INTO purchasedby (productid, customerid, quantity) VALUES (12, 31, 2);
+INSERT INTO purchasedby (productid, customerid, quantity) VALUES (78, 31, 4);
+INSERT INTO purchasedby (productid, customerid, quantity) VALUES (66, 31, 2);
+INSERT INTO purchasedby (productid, customerid, quantity) VALUES (66, 15, 2);
+INSERT INTO purchasedby (productid, customerid, quantity) VALUES (78, 15, 2);
+INSERT INTO purchasedby (productid, customerid, quantity) VALUES (66, 14, 19);
+
+-- Inserting data into agent table (with customer ids)
+INSERT INTO agent (agentid, firstname, lastname, city, commission, customerid) VALUES (99, "Hugh", "Grant", "Springfield", 16, 21);
+INSERT INTO agent (agentid, firstname, lastname, city, commission, customerid) VALUES (99, "Hugh", "Grant", "Springfield", 16, 12);
+INSERT INTO agent (agentid, firstname, lastname, city, commission, customerid) VALUES (99, "Hugh", "Grant", "Springfield", 16, 14);
+INSERT INTO agent (agentid, firstname, lastname, city, commission, customerid) VALUES (33, "David", "Letterman", "Bedrock", 100, 13);
+INSERT INTO agent (agentid, firstname, lastname, city, commission, customerid) VALUES (11, "Regis", "Philbin", "Boston", 33, 10);
+INSERT INTO agent (agentid, firstname, lastname, city, commission, customerid) VALUES (11, "Regis", "Philbin", "Boston", 33, 15);
+INSERT INTO agent (agentid, firstname, lastname, city, commission, customerid) VALUES (66, "Rosie", "ODonnell", "Ottawa", 100, 31);
+
+-- Showing data in all tables
+SHOW * FROM product;
+SHOW * FROM agent;
+SHOW * FROM customer;
+SHOW * FROM purchasedby;
+
+-- Updates
+UPDATE customer SET firstname = "Wonder", lastname = "Woman" WHERE firstname = "Super" AND lastname = "Man";
+UPDATE customer INNER JOIN purchasedby ON customer.customerid = purchasedby.customerid SET purchasedby.quantity = 5 WHERE customer.firstname = "Sideshow";
+UPDATE agent INNER JOIN customer ON agent.customerid = customer.customerid SET customer.city = "Boston" WHERE agent.firstname = "Regis";
+
+-- Showing data in all tables
+SHOW * FROM product;
+SHOW * FROM agent;
+SHOW * FROM customer;
+SHOW * FROM purchasedby;

@@ -1,0 +1,19 @@
+Warning: Using a password on the command line interface can be insecure.
+ERROR 1062 (23000) at line 12: Duplicate entry '12' for key 'PRIMARY'
+--------------
+SHOW DATABASES
+--------------
+
+Database
+information_schema
+krath5assign2db
+mysql
+performance_schema
+--------------
+LOAD DATA LOCAL INFILE "insertdata.txt" INTO TABLE product
+--------------
+
+--------------
+INSERT INTO product (productid, description, cost, quantity) VALUES (12, "Socks", 2.00, 100)
+--------------
+
