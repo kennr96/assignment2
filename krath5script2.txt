@@ -6,7 +6,7 @@ USE krath5assign2db;
 
 -- Loading from prof's file into table. Note: I received an error during this command.
 -- From my research online it appears that her file must be in a directory I don't have access to.
-LOAD DATA LOCAL INFILE "insertdata.txt" INTO TABLE product;
+-- LOAD DATA LOCAL INFILE "insertdata.txt" INTO TABLE product FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY 'r\n\';
 
 -- Manualy adding data from prof's file into table because of error
 INSERT INTO product (productid, description, cost, quantity) VALUES (12, "Socks", 2.00, 100);
@@ -18,15 +18,6 @@ INSERT INTO product (productid, description, cost, quantity) VALUES (78, "Knee P
 -- Inserting data into product table
 INSERT INTO product (productid, description, cost, quantity) VALUES (66, "Elbow pads", 14.25, 120);
 INSERT INTO product (productid, description, cost, quantity) VALUES (96, "Shoulder Pads", 24.95, 80);
-
--- Inserting data into agent table
-INSERT INTO agent (agentid, firstname, lastname, city, commission, customerid) VALUES (99, "Hugh", "Grant", "Springfield", 16, NULL);
-INSERT INTO agent (agentid, firstname, lastname, city, commission, customerid) VALUES (22, "Courtney", "Cox", "New York", 25, NULL);
-INSERT INTO agent (agentid, firstname, lastname, city, commission, customerid) VALUES (66, "Rosie", "ODonnell", "Ottawa", 100, NULL);
-INSERT INTO agent (agentid, firstname, lastname, city, commission, customerid) VALUES (33, "David", "Letterman", "Bedrock", 100, NULL);
-INSERT INTO agent (agentid, firstname, lastname, city, commission, customerid) VALUES (11, "Regis", "Philbin", "Boston", 33, NULL);
-INSERT INTO agent (agentid, firstname, lastname, city, commission, customerid) VALUES (12, "Rosie", "Cox", "Ottawa", 50, NULL);
-INSERT INTO agent (agentid, firstname, lastname, city, commission, customerid) VALUES (96, "Ken", "Rath", "London", 100, NULL);
 
 -- Inserting data into customer table
 INSERT INTO customer (customerid, firstname, lastname, city, phonenumber) VALUES (21, "Homer", "Simpson", "Springfield", "686-8956");
@@ -59,10 +50,10 @@ INSERT INTO agent (agentid, firstname, lastname, city, commission, customerid) V
 INSERT INTO agent (agentid, firstname, lastname, city, commission, customerid) VALUES (66, "Rosie", "ODonnell", "Ottawa", 100, 31);
 
 -- Showing data in all tables
-SHOW * FROM product;
-SHOW * FROM agent;
-SHOW * FROM customer;
-SHOW * FROM purchasedby;
+SELECT * FROM product;
+SELECT * FROM agent;
+SELECT * FROM customer;
+SELECT * FROM purchasedby;
 
 -- Updates
 UPDATE customer SET firstname = "Wonder", lastname = "Woman" WHERE firstname = "Super" AND lastname = "Man";
@@ -70,7 +61,7 @@ UPDATE customer INNER JOIN purchasedby ON customer.customerid = purchasedby.cust
 UPDATE agent INNER JOIN customer ON agent.customerid = customer.customerid SET customer.city = "Boston" WHERE agent.firstname = "Regis";
 
 -- Showing data in all tables
-SHOW * FROM product;
-SHOW * FROM agent;
-SHOW * FROM customer;
-SHOW * FROM purchasedby;
+SELECT * FROM product;
+SELECT * FROM agent;
+SELECT * FROM customer;
+SELECT * FROM purchasedby;
